@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우지커피 웹디 리뉴얼</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Swiper JS -->
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        $(function () {
+            // 데스크탑 헤더
+            let header = document.querySelector('.header');
+            let depth01 = document.querySelectorAll('.header .depth01');
+            let depth01Text = document.querySelectorAll('.header .depth01 > a');
+
+            $('.header .depth01').mouseenter(function () {
+                //alert() 변수명 적용이 안 됨
+                $('.header').addClass('open');
+            });
+            $('.header .depth01').mouseleave(function () {
+                //alert() 변수명 적용이 안 됨
+                $('.header').removeClass('open');
+            });
+
+            // 태블릿 헤더 변수명 적용 안 되는 이유 🎈🎈🎈<<자바 document 식으로 일관성 있게 작성해야함>>
+            let wrap = $('.wrap'); // ::before에 클래스 on 못 붙음 대신 wrap에 on 붙이기
+            let menuOpen = $('.mobile_nav_open');
+            let menuClose = $('.mobile_nav_close');
+            let mobileMenuBox = $('.mobile_nav_open_box');
+
+            menuOpen.click(function () {
+                wrap.addClass('on');
+                mobileMenuBox.addClass('on');
+
+            });
+            menuClose.click(function () {
+                wrap.removeClass('on');
+                mobileMenuBox.removeClass('on');
+            });
+
+            $('.depth01--mobile').click(function () {
+                $(this).children('.nav-list_depth02--mobile').slideToggle();
+                $(this).toggleClass('on');
+            });
+
+            // 메인비주얼 오토슬라이드
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                /* autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }, */
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+
+            // section01 슬라이드
+            var swiper = new Swiper(".bestmenu_slide", {
+                //cssMode: true,
+                slidesPerView: 5,
+                spaceBetween: 30,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    200: { slidesPerView: 1 },
+                    500: { slidesPerView: 3 },
+                    767: { slidesPerView: 4 },
+                    1200: { slidesPerView: 5 },
+                },
+            });
+
+            //section01 탭메뉴
+            //let tabBestMenu = $('.tab_menu--bestmenu');
+            let tabBestMenu = document.querySelectorAll('.tab_menu--bestmenu li');
+            let listBestMenu = document.querySelectorAll('.bestmenu_slide');
+
+            for (let i = 0; i < tabBestMenu.length; i++) {
+                tabBestMenu[i].addEventListener('click', () => {
+                    //alert(i)
+                    tabBestMenu.forEach((item) => {
+                        item.classList.remove('on');
+                    });
+                    tabBestMenu[i].classList.add('on');
+
+                    listBestMenu.forEach((item) => {
+                        item.classList.remove('on');
+                    });
+                    listBestMenu[i].classList.add('on');
+                });
+
+            }
+
+            // sns 오토 슬라이드
+            var swiper = new Swiper(".sns_slide", {
+                slidesPerView: 4,
+                spaceBetween: 15,
+                /* autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }, */
+                pagination: {
+                    el: ".swiper-pagination",
+                    type: "fraction",
+                },
+                breakpoints: {
+                    0: { slidesPerView: 1.3 },
+                    363: { slidesPerView: 1.5 },
+                    440: { slidesPerView: 3 },
+                    500: { slidesPerView: 3 },
+                    1350: { slidesPerView: 4 },
+                },
+            });
+
+            AOS.init();
+        }) //script end
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="header inner" id="header">
+            <div class="header-wrap container">
+                <h1 class="logo">
+                    <a href="#" title="메인으로">
+                        OOZYCOFFEE
+                    </a>
+                </h1>
+                <!-- navigation -->
+                <button class="mobile_nav_open mobile">
+                    <img src="img/icons8-menu-50_gray.png" alt="메뉴열기">
+                </button>
+                <!-- nav open box before 검은배경 position fixed! relative 할 필요 없음 -->
+                <div class="mobile_nav_open_box mobile"><!-- 🎈🎈🎈🎈🎈 -->
+                    <div class="top--mobile_nav_open_box">
+                        <h1 class="logo">
+                            <a href="#" title="메인으로">
+                                OOZYCOFFEE
+                            </a>
+                        </h1>
+                        <button class="mobile_nav_close">
+                            <img src="img/close_Icon.png" alt="메뉴닫기">
+                        </button>
+                    </div><!-- .top--mobile_nav_open_box end -->
+                    <div class="body--mobile_nav_open_box">
+                        <ul class="nav-list--mobile">
+                            <li class="depth01--mobile">
+                                <a href="#">ABOUT US</a>
+                                <ul class="nav-list_depth02--mobile">
+                                    <li class="depth02--mobile"><a href="#">OOZY COFFEE IS</a></li>
+                                    <li class="depth02--mobile"><a href="#">BI</a></li>
+                                    <li class="depth02--mobile"><a href="#">오시는길</a></li>
+                                </ul>
+                            </li>
+                            <li class="depth01--mobile">
+                                <a href="#">MENU</a>
+                                <ul class="nav-list_depth02--mobile">
+                                    <li class="depth02--mobile"><a href="#">NEW</a></li>
+                                    <li class="depth02--mobile"><a href="#">COFFEE</a></li>
+                                    <li class="depth02--mobile"><a href="#">COLD BREW</a></li>
+                                    <li class="depth02--mobile"><a href="#">BEVERAGE</a></li>
+                                    <li class="depth02--mobile"><a href="#">FRAPPE</a></li>
+                                    <li class="depth02--mobile"><a href="#">ADE & MOJITO</a></li>
+                                    <li class="depth02--mobile"><a href="#">TEA & JUICE</a></li>
+                                    <li class="depth02--mobile"><a href="#">TEA & JUICE</a></li>
+                                    <li class="depth02--mobile"><a href="#">DESSRT</a></li>
+                                </ul>
+                            </li>
+                            <li class="depth01--mobile">
+                                <a href="#">STORE</a>
+                                <ul class="nav-list_depth02--mobile">
+                                    <li class="depth02--mobile"><a href="#">매장찾기</a></li>
+                                </ul>
+                            </li>
+                            <li class="depth01--mobile">
+                                <a href="#">FRANCHISE</a>
+                                <ul class="nav-list_depth02--mobile">
+                                    <li class="depth02--mobile"><a href="#">브랜드경쟁력</a></li>
+                                    <li class="depth02--mobile"><a href="#">인테리어</a></li>
+                                    <li class="depth02--mobile"><a href="#">개설절차 및 비용</a></li>
+                                    <li class="depth02--mobile"><a href="#">가맹문의</a></li>
+                                    <li class="depth02--mobile"><a href="#">제휴 및 입점 문의</a></li>
+                                </ul>
+                            </li>
+                            <li class="depth01--mobile">
+                                <a href="#">COMMUNITY</a>
+                                <ul class="nav-list_depth02--mobile">
+                                    <li class="depth02--mobile"><a href="#">보도자료</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- .body--mobile_nav_open_box end -->
+                </div><!-- .mobile_nav end-->
+                <nav class="nav gnb-drop--all pc">
+                    <ul class="nav-list--depth01">
+                        <li class="nav-list-item depth01">
+                            <a href="#" class="link">ABOUT US</a>
+                            <ul class="nav-list--depth02">
+                                <li class="nav-list-item depth02"><a href="#">OOZY COFFEE IS</a></li>
+                                <li class="nav-list-item depth02"><a href="#">BI</a></li>
+                                <li class="nav-list-item depth02"><a href="#">개설절차 및 비용</a></li>
+                                <li class="nav-list-item depth02"><a href="#">가맹문의</a></li>
+                                <li class="nav-list-item depth02"><a href="#">제휴 및 입점 문의</a></li>
+                            </ul>
+                        </li><!-- depth01 /1 end -->
+                        <li class="nav-list-item depth01">
+                            <a href="#" class="link">MENU</a>
+                            <ul class="nav-list nav-list--depth02">
+                                <li class="nav-list-item depth02"><a href="#">NEW</a></li>
+                                <li class="nav-list-item depth02"><a href="#">COFFEE</a></li>
+                                <li class="nav-list-item depth02"><a href="#">COLD BREW</a></li>
+                                <li class="nav-list-item depth02"><a href="#">BEVERAGE</a></li>
+                                <li class="nav-list-item depth02"><a href="#">FRAPPE</a></li>
+                                <li class="nav-list-item depth02"><a href="#">ADE & MOJITO</a></li>
+                                <li class="nav-list-item depth02"><a href="#">TEA & JUICE</a></li>
+                                <li class="nav-list-item depth02"><a href="#">DESSRT</a></li>
+                            </ul>
+                        </li><!-- depth01 /2 end -->
+                        <li class="nav-list-item depth01">
+                            <a href="#" class="link">STORE</a>
+                            <ul class="nav-list nav-list--depth02">
+                                <li class="nav-list-item depth02"><a href="#">매장찾기</a></li>
+                            </ul>
+                        </li><!-- depth01 /3 end -->
+                        <li class="nav-list-item depth01">
+                            <a href="#" class="link">FRANCHISE</a>
+                            <ul class="nav-list nav-list--depth02">
+                                <li class="nav-list-item depth02"><a href="#">브랜드경쟁력</a></li>
+                                <li class="nav-list-item depth02"><a href="#">인테리어</a></li>
+                                <li class="nav-list-item depth02"><a href="#">개설절차 및 비용</a></li>
+                                <li class="nav-list-item depth02"><a href="#">가맹문의</a></li>
+                                <li class="nav-list-item depth02"><a href="#">제휴 및 입점 문의</a></li>
+                            </ul>
+                        </li><!-- depth01 /4 end -->
+                        <li class="nav-list-item depth01">
+                            <a href="#" class="link">COMMUNITY</a>
+                            <ul class="nav-list nav-list--depth02">
+                                <li class="nav-list-item depth02"><a href="#">보도자료</a></li>
+                            </ul>
+                        </li><!-- depth01 /5 end -->
+                    </ul>
+                </nav>
+                <div class="util pc">
+                    <ul>
+                        <li class="before_sign"><a href="#">로그인</a></li>
+                        <li class="before_sign"><a href="#">회원가입</a></li>
+                        <li class="icon_util global_oozy"><a href="#" target="_blank" title="GLOBAL OOZYCOFFEE">Global
+                                Subway</a></li>
+                    </ul>
+                </div>
+            </div><!-- .header-wrap end -->
+        </header><!-- .header end -->
+        <main>
+            <section class="main_visual">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img class="pc-image" src="img/banner00_re.jpg" alt="">
+                            <img class="mobile-image" src="img/mobile-banner00-1.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="pc-image" src="img/banner01.png" alt="">
+                            <img class="mobile-image" src="img/mobile-banner01.png" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="pc-image" src="img/banner04.png" alt="">
+                            <img class="mobile-image" src="img/mobile-banner03.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="quick_link first_link">
+                    <div class="quick_link_content">
+                        <div class="store">
+                            <a href="#">
+                                <strong>
+                                    매장찾기
+                                </strong>
+                            </a>
+                        </div>
+                        <div class="franchise">
+                            <a href="#">
+                                <strong>
+                                    가맹신청ㆍ문의
+                                </strong>
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- .quick_link end -->
+                <div class="mobile-quick_link">
+                    <div class="store-mobile">
+                        <a href="#">
+                            <div class="content">
+                                <img src="img/location_bright.png" alt="매장찾기">
+                                <p>매장찾기</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="franchise-mobile">
+                        <a href="#">
+                            <div class="content">
+                                <img src="img/icons8-writing_re-64.png" alt="가맹신청ㆍ문의">
+                                <p>가맹신청ㆍ문의</p>
+                            </div>
+                        </a>
+                    </div>
+                </div><!-- .mobile-quick_link end -->
+            </section><!-- .main_visual end -->
+            <section class="bestmenu section01">
+                <div class="wrap_bestmenu">
+                    <div class="container">
+                        <div class="title_wrap--bestmenu">
+                            <div class="title" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+                                <h2>BEST MENU</h2>
+                                <span>우지만의 강점을 살린 베스트메뉴를 즐겨보세요.</span>
+                            </div>
+                            <ul class="tab_menu--bestmenu">
+                                <li class="on">커피</li><!-- 01 -->
+                                <li>콜드브루</li><!-- 02 -->
+                                <li>베버리지</li><!-- 03 -->
+                                <li>프라페</li><!-- 04 -->
+                                <li>에이드</li><!-- 05 -->
+                                <li>티ㆍ주스</li><!-- 06 -->
+                            </ul>
+                        </div><!-- .title_wrap--bestmenu end -->
+                    </div><!-- .container end -->
+
+                    <div class="swiper bestmenu_slide list01--bestmenu_slide on"> <!-- 🎃 자바로 탭메뉴 구현 -->
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm_1-1.png" alt="꿀아메리카노">
+                                </div>
+                                <p>꿀아메리카노</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-1.png" alt="딥카페라떼">
+                                </div>
+                                <p>딥카페라떼</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-4.png" alt="바닐라라떼">
+                                </div>
+                                <p>바닐라라떼</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-5.png" alt="큐브연유라떼">
+                                </div>
+                                <p>큐브연유라떼</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-10.png" alt="시나몬슈가 카푸치노">
+                                </div>
+                                <p>시나몬슈가 카푸치노</p>
+                            </div><!-- .swiper-slide /05 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-4.png" alt="피칸라떼">
+                                </div>
+                                <p>피칸라떼</p>
+                            </div><!-- .swiper-slide /06 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-9.png" alt="화이트카페모카">
+                                </div>
+                                <p>화이트카페모카</p>
+                            </div><!-- .swiper-slide /07 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm1-6.png" alt="민트카페모카">
+                                </div>
+                                <p>민트카페모카</p>
+                            </div><!-- .swiper-slide /08 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                    <div class="swiper bestmenu_slide list02--bestmenu_slide">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm_1-1.png" alt="콜드브루커피">
+                                </div>
+                                <p>콜드브루커피</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-1.png" alt="콜드브루라떼">
+                                </div>
+                                <p>콜드브루라떼</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-2.png" alt="말차 콜드브루라떼">
+                                </div>
+                                <p>말차 콜드브루라떼</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-6.png" alt="바닐라크림 콜드브루라떼">
+                                </div>
+                                <p>바닐라크림 콜드브루라떼</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-7.png" alt="피넛 클라우드">
+                                </div>
+                                <p>피넛 클라우드</p>
+                            </div><!-- .swiper-slide /05 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm2-8.png" alt="율무크림 콜드브루">
+                                </div>
+                                <p>율무크림 콜드브루</p>
+                            </div><!-- .swiper-slide /06 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                    <div class="swiper bestmenu_slide list03--bestmenu_slide">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-6.png" alt="봄딸기쇼콜라떼">
+                                </div>
+                                <p>봄딸기쇼콜라떼</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-7.png" alt="호지넛크림라떼">
+                                </div>
+                                <p>호지넛크림라떼</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-8.png" alt="얼그레이초코라떼">
+                                </div>
+                                <p>얼그레이초코라떼</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-9.png" alt="마쉬멜로우 초코라떼">
+                                </div>
+                                <p>마쉬멜로우 초코라떼</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-10.png" alt="딸기라떼">
+                                </div>
+                                <p>딸기라떼</p>
+                            </div><!-- .swiper-slide /05 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-2.png" alt="고구마라떼">
+                                </div>
+                                <p>고구마라떼</p>
+                            </div><!-- .swiper-slide /06 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-1.png" alt="녹차라떼">
+                                </div>
+                                <p>녹차라떼</p>
+                            </div><!-- .swiper-slide /07 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm3-3.png" alt="자색고구마라떼">
+                                </div>
+                                <p>자색고구마라떼</p>
+                            </div><!-- .swiper-slide /08 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                    <div class="swiper bestmenu_slide list04--bestmenu_slide">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-1.png" alt="딸기프라페">
+                                </div>
+                                <p>딸기프라페</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-2.png" alt="딸기죠리퐁프라페">
+                                </div>
+                                <p>딸기죠리퐁프라페</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-4.png" alt="복숭아스무디">
+                                </div>
+                                <p>복숭아스무디</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-3.png" alt="그린애플스무디">
+                                </div>
+                                <p>그린애플스무디</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-9.png" alt="망고스무디">
+                                </div>
+                                <p>망고스무디</p>
+                            </div><!-- .swiper-slide /05 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-5.png" alt="자바초코칩프라페">
+                                </div>
+                                <p>자바초코칩프라페</p>
+                            </div><!-- .swiper-slide /06 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-8.png" alt="딸기슈크림프라페">
+                                </div>
+                                <p>딸기슈크림프라페</p>
+                            </div><!-- .swiper-slide /07 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm4-7.png" alt="메론크림스무디">
+                                </div>
+                                <p>메론크림스무디</p>
+                            </div><!-- .swiper-slide /08 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                    <div class="swiper bestmenu_slide list05--bestmenu_slide">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-1.png" alt="레몬에이드">
+                                </div>
+                                <p>레몬에이드</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-2.png" alt="자몽에이드">
+                                </div>
+                                <p>자몽에이드</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-3.png" alt="라임모히또에이드">
+                                </div>
+                                <p>라임모히또에이드</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-4.png" alt="청포도에이드">
+                                </div>
+                                <p>청포도에이드</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-5.png" alt="봄딸기라임에이드">
+                                </div>
+                                <p>봄딸기라임에이드</p>
+                            </div><!-- .swiper-slide /05 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-6.png" alt="수박모히또에이드">
+                                </div>
+                                <p>수박모히또에이드</p>
+                            </div><!-- .swiper-slide /06 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm5-7.png" alt="딸기 아사이 레몬에이드">
+                                </div>
+                                <p>딸기 아사이 레몬에이드</p>
+                            </div><!-- .swiper-slide /07 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                    <div class="swiper bestmenu_slide list06--bestmenu_slide">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm6-1.png" alt="히비스커스티">
+                                </div>
+                                <p>히비스커스티</p>
+                            </div><!-- .swiper-slide /01 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm6-2.png" alt="페퍼민트티">
+                                </div>
+                                <p>페퍼민트티</p>
+                            </div><!-- .swiper-slide /02 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm6-3.png" alt="얼그레이티">
+                                </div>
+                                <p>얼그레이티</p>
+                            </div><!-- .swiper-slide /03 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm6-4.png" alt="딸기바나나주스">
+                                </div>
+                                <p>딸기바나나주스</p>
+                            </div><!-- .swiper-slide /04 end -->
+                            <div class="swiper-slide">
+                                <div class="image_bx">
+                                    <img src="img/bm6-5.png" alt="초코바나나주스">
+                                </div>
+                                <p>초코바나나주스</p>
+                            </div><!-- .swiper-slide /05 end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div><!-- .swiper end -->
+                </div>
+            </section><!-- .bestmenu end -->
+            <section class="about section02">
+                <a href="#">
+                    <figure>
+                        <img src="img/bg01_notext.jpg" alt="어바웃 우지커피">
+                    </figure>
+                    <div class="title--about" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+                        <h3>OOZY COFFEE IS</h3>
+                        <p>something beyond coffee</p>
+                        <a href="#" class="btn--about">더 알아보기</a>
+                    </div>
+                </a>
+            </section>
+            <section class="about02 section03 inner--section03" data-aos="fade-down" data-aos-easing="linear"
+                data-aos-duration="1000">
+                <div class="title--about02">
+                    <!-- <h4>Franchising Business</h4> -->
+                    <div class="hr-sect">
+                        <h4>Franchising Business</h4>
+                    </div>
+                    <P>
+                        <span>우지커피는 체계적인 개설 시스템 구축과</span>
+                        <span>디저트카페 트렌드를 선도하는 인테리어 경쟁력을 확보한 전문 브랜드입니다.</span>
+                    </P>
+                </div><!-- .title--about02 end -->
+                <div class="btn_wrap--about02">
+                    <div class="btn--about02">
+                        <a href="#">
+                            <img src="img/캡쳐01_re.png" alt="">
+                            <p>브랜드 경쟁력</p>
+                            <a href="#" class="small_btn">바로가기</a>
+                        </a>
+                    </div><!-- .btn--about02 /01 end -->
+                    <div class="btn--about02">
+                        <a href="#">
+                            <img src="img/캡쳐02_re.png" alt="">
+                            <p>인테리어</p>
+                            <a href="#" class="small_btn">바로가기</a>
+                        </a>
+                    </div><!-- .btn--about02 /02 end -->
+                    <div class="btn--about02">
+                        <a href="#">
+                            <img src="img/캡쳐03_re.png" alt="">
+                            <p>개설비용</p>
+                            <a href="#" class="small_btn">바로가기</a>
+                        </a>
+                    </div><!-- .btn--about02 /03 end -->
+                </div><!-- .btn_wrap--about02 end -->
+            </section>
+            <section class="sns section04 inner-section04">
+                <div class="title" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+                    <h2>SNS</h2>
+                    <span>우지커피만의 다양한 SNS 홍보 및 마케팅 소식을 확인해보세요.</span>
+                </div><!-- .title end -->
+                <div class="swiper sns_slide" >
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns01.png" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /01 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns08.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /02 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns02.png" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /03 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns03.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /04 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns04.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /05 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns05.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /06 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns06.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /07 end -->
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <div class="img_box">
+                                    <img src="img/sns07.jpg" alt="sns 게시물 보러가기">
+                                </div>
+                                <a href="#" class="icon--sns">
+                                    <img src="img/insta-icon.png" alt="인스타그램 아이콘">
+                                </a>
+                            </a>
+                        </div><!-- .swiper-slide /08 end -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <div class="top--footer">
+                    <h5>OOZY COMPANY</h5>
+                    <div class="info_top">
+                        <a href="#"><span>이용약관</span></a>
+                        <a href="#"><span>개인정보처리방침</span></a>
+                    </div>
+                    <div class="icon--footer">
+                        <img src="img/instagram_white.png" alt="인스타그램">
+                        <img src="img/icons8-facebook-50.png" alt="페이스북">
+                        <img src="img/블로그_re.png" alt="네이버블로그">
+                    </div>
+                </div><!-- .top--footer end -->
+                <ul class="middle--footer">
+                    <li>법인명 : (주)우지컴퍼니｜ 대표자 : 이강원</li>
+                    <li>소재지 : 서울특별시 송파구 법원로11길 25 H비지니스파크 A동 408-410호</li>
+                    <li>사업자등록번호 : 509-81-07187</li>
+                    <li>대표번호 : 1811-9024 ｜ FAX : 02-414-0242</li>
+                    <br><br>
+                    <li>개인정보취급방침 · 이용약관</li>
+                    <li>
+                        Copyright ⓒ 2024 우지커피 All rights reserved.
+                    </li>
+                </ul><!-- .middle--footer end -->
+            </div>
+        </footer>
+    </div><!-- .wrap end -->
+</body>
+
+</html>
